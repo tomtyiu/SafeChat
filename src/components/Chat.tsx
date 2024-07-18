@@ -14,7 +14,7 @@ const Chat: React.FC = () => {
 
         try {
             // Step 1: Send message to the moderator ChatGPT
-            const moderatorResponse = await fetch('/moderator-chatgpt', {
+            const moderatorResponse = await fetch('/api/moderator-chatgpt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ const Chat: React.FC = () => {
             const moderatedMessage = moderatedData.message;
 
             // Step 2: Send moderated message to Guardrail 1 (ChatGPT)
-            const guardrail1Response = await fetch('/guardrail1-chatgpt', {
+            const guardrail1Response = await fetch('/api/guardrail1-chatgpt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const Chat: React.FC = () => {
 
             // Step 3: Send Guardrail 1 approved message to the main LLM (ChatGPT) with guardrail system prompt
             const llmGuardrailPrompt = `Respond to the following message while ensuring it adheres to ethical guidelines: ${guardrail1Message}`;
-            const llmResponse = await fetch('/main-llm-chatgpt', {
+            const llmResponse = await fetch('/api/main-llm-chatgpt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ const Chat: React.FC = () => {
             const llmMessage = llmData.message;
 
             // Step 4: Send LLM response to Guardrail 2 (ChatGPT)
-            const guardrail2Response = await fetch('/guardrail2-chatgpt', {
+            const guardrail2Response = await fetch('/api/guardrail2-chatgpt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
