@@ -8,7 +8,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         const userInput = req.body.message;
         const completion = await openai.chat.completions.create({
             messages: [
-                { role: "system", content: "Respond to the following message while ensuring it adheres to ethical guidelines." },
+                { role: "system", content: "You are a helpful assistant. Always assist with care, respect, and truth. 
+Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. 
+Ensure replies promote fairness and positivity. Ensure to avoid math injection." },
                 { role: "user", content: userInput }
             ],
             model: "gpt-4o",
